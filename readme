@@ -1,0 +1,9 @@
+Simple mini app to demonstrate using j-toker jquery authentication and simple_token_authentication for the wikimaps warper 
+
+run as a server:
+for example:  `python -m SimpleHTTPServer` and navigate to localhost:8000 
+
+Click login via github, jtoker will call the warper, which calls github and then via the browser postMessage API opens a window. 
+Jtoker is listening to the message and logs the user in.
+
+Click the Get User details and call the warper with details about the user. This is authenticated via headers.

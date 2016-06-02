@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8"> 
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/jquery.cookie.js'></script>
+    <script src='/js/jquery-deparam.js'></script>
+    <script src='/js/pubsub.js'></script>
+
+    <script src='/js/jquery.j-toker.min.js'></script>
+    <script>
+        $(function() {
+            $.auth.configure({
+                apiUrl: 'http://localhost:3000',
+                signOutPath: '/u/sign_out',
+
+                tokenFormat: {
+                    "token-type": "simple-token",
+                    "X-User-Email": "{{ email }}",
+                    "X-User-Token": "{{ access-token }}",
+                },
+
+                authProviderPaths: {
+                    github: '/u/auth/github',
+                    mediawiki: '/u/auth/mediawiki'
+                }
+            });
+
+            $("#github").click(function() {
+                $.auth.oAuthSignIn({
+                    provider: 'github',
+                    params: {
+                        favorite_color: 'purple'
+                    }
+                });
+            });
+            
+            $("#getuser").click(function(){
+              var url = $.auth.getApiUrl() + "/api/v1/users/"+$.auth.user.id;
+                console.log(url)
+              $.getJSON(url).done(function(data){
+                  console.log(data)
+                  $("#json-output #area").val(JSON.stringify(data));
+              });
+            
+            })
+            
+            PubSub.subscribe('auth.validation.success', function(ev, user) {
+                console.log(ev, user);
+                $("#login-output #name").val(user.name);
+                $("#login-output #token").val(user["access-token"]);
+            });
+
+
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <a id="github" href="#">1. Log on via github</a>
+        
+    </div>
+    <div>
+        <div id="login-output">
+              name:  <input id="name" readonly="" autocomplete="off" />
+             token:  <input id="token" readonly="" autocomplete="off"  />
+        </div>
+        <a id="getuser" href="#">2. Get User details</a>
+        <div id="json-output">
+          <textarea id="area" rows=5 cols=200></textarea>
+        </div>
+    </div>
+</body>
+
+</html>
