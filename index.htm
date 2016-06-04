@@ -14,10 +14,10 @@
             $.auth.configure({
                 apiUrl: 'http://localhost:3000',
                 signOutPath: '/u/sign_out',
-
+                tokenValidationPath:   '/api/v1/auth/validate_token',
                 tokenFormat: {
                     "token-type": "simple-token",
-                    "X-User-Email": "{{ email }}",
+                    "X-User-Id": "{{ id }}",
                     "X-User-Token": "{{ access-token }}",
                 },
 

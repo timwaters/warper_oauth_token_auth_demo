@@ -7,3 +7,5 @@ Click login via github, jtoker will call the warper, which calls github and then
 Jtoker is listening to the message and logs the user in.
 
 Click the Get User details and call the warper with details about the user. This is authenticated via headers.
+
+when it loads, jtoker will try to use the token it has stored in localstorage and call /api/v1/validate_token  which if the token is still valid will return the user details and effectively log the user in. This means that the user does not have to log in via oauth each time they load the js app.
