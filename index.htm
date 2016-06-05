@@ -36,6 +36,15 @@
                 });
             });
             
+            $("#mediawiki").click(function() {
+                $.auth.oAuthSignIn({
+                    provider: 'mediawiki',
+                    params: {
+                        favorite_color: 'purple'
+                    }
+                });
+            });
+            
             $("#getuser").click(function(){
               var url = $.auth.getApiUrl() + "/api/v1/users/"+$.auth.user.id;
                 console.log(url)
@@ -59,8 +68,8 @@
 
 <body>
     <div>
-        <a id="github" href="#">1. Log on via github</a>
-        
+        <a id="github" href="#">1a. Log on via github</a> or<br />
+        <a id="mediawiki" href="#">1b. Log on via Mediawiki (beta commons)</a>
     </div>
     <div>
         <div id="login-output">
