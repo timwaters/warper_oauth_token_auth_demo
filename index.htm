@@ -55,6 +55,28 @@
             
             })
             
+                    
+            $("#getmap").click(function(){
+            var url = $.auth.getApiUrl() + "/api/v1/maps/5.json";
+            console.log(url)
+            $.getJSON(url).done(function(data){
+             console.log(data)
+             $("#json-output #area").val(JSON.stringify(data));
+            });
+
+            })
+            
+            $("#logout").click(function(){
+            var url = $.auth.getApiUrl() + "/api/v1/auth/sign_out";
+            console.log(url)
+            $.getJSON(url).done(function(data){
+             console.log(data)
+             $("#json-output #area").val(JSON.stringify(data));
+            });
+
+            })
+
+            
             PubSub.subscribe('auth.validation.success', function(ev, user) {
                 console.log(ev, user);
                 $("#login-output #name").val(user.name);
@@ -76,7 +98,9 @@
               name:  <input id="name" readonly="" autocomplete="off" />
              token:  <input id="token" readonly="" autocomplete="off"  />
         </div>
-        <a id="getuser" href="#">2. Get User details</a>
+        <a id="getuser" href="#">2. Get User details</a> <br />
+        <a id="getmap" href="#"> 3. Get Map details (auth and non auth)</a><br />
+        <a id="logout" href="#">Logout</a> <br />
         <div id="json-output">
           <textarea id="area" rows=5 cols=200></textarea>
         </div>
