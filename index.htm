@@ -68,13 +68,17 @@
             
             $("#logout").click(function(){
             var url = $.auth.getApiUrl() + "/api/v1/auth/sign_out";
-            console.log(url)
-            $.getJSON(url).done(function(data){
-             console.log(data)
-             $("#json-output #area").val(JSON.stringify(data));
-            });
+            console.log(url);
+            $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function(data){
+                console.log(data)
+                $("#json-output #area").val(JSON.stringify(data));
+              }
 
-            })
+            });
+          });
 
             
             PubSub.subscribe('auth.validation.success', function(ev, user) {
