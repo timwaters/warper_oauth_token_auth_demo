@@ -828,7 +828,7 @@
   Auth.prototype.buildOAuthUrl = function(configName, params, providerPath) {
     var oAuthUrl = this.getConfig().apiUrl + providerPath +
         //'?auth_origin_url='+encodeURIComponent(root.location.href) +
-        '&config_name='+encodeURIComponent(configName || this.getCurrentConfigName()) +
+        '?config_name='+encodeURIComponent(configName || this.getCurrentConfigName()) +
         "&omniauth_window_type=newWindow";
 
     if (params) {
